@@ -1,0 +1,11 @@
+import gnupg
+a = range(2)
+a[1] = open('/home/anon/pgp/aletariomail', 'r')
+a[0] = a[1].read()
+a[1].close()
+print(a[0])
+a[1] =  gnupg.GPG(gnupghome='/media/anon/Libros, i contra/pgp/.pgp')
+a[1].import_keys(a[0])
+a[1].list_keys()
+a[1].encrypt('hola', '')
+a[1].decrypt('hola')
