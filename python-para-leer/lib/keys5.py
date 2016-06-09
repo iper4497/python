@@ -33,7 +33,7 @@ class keys():
         print 'stderr: ', decrypted_data.stderr
         print 'decrypted string: ', decrypted_data.data
         return decrypted_data.data
-a = keys('/home/anon/.gnupg')
-b = a.encrytar('hola como estas', '58FFF5BAC9CDCCAB')
-print(b)
-a.listkeys()
+#a = keys('/home/anon/.gnupg')
+#b = a.encrytar('hola como estas', '58FFF5BAC9CDCCAB')
+#print(b)
+#a.listkeys()
