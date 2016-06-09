@@ -1,6 +1,6 @@
 import gnupg
 from pprint import pprint
-class keys(object):
+class keys():
 #a = keys('/home/anon/.gnupg')
 #a.encrytar('hola como estas', '1869B494884B2FAA')
 #a.listkeys()
