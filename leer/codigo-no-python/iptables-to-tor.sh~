@@ -12,9 +12,9 @@
 ### END INIT INFO
 #El codigo base es de: https://raw.githubusercontent.com/ericpaulbishop/iptables_torify/master/torify.init
 
-tor_user="debian-tor"
+tor_user="anon"
 dns_port="9061"
-trans_port="9051"
+trans_port="9050"
 tor_virtual_network="10.66.0.0/255.255.0.0"
 
 

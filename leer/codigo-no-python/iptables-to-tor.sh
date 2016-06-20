@@ -14,7 +14,7 @@
 
 tor_user="anon"
 dns_port="9061"
-trans_port="9051"
+trans_port="9050"
 tor_virtual_network="10.66.0.0/255.255.0.0"
 
 
@@ -36,7 +36,7 @@ do_start()
 		iptables -t $table -A OUTPUT -m state --state ESTABLISHED -j $target
 	
 		#don't send tor traffic through tor again
-		iptables -t $table -A OUTPUT -m owner --uid debian-tor  -j $target
+		iptables -t $table -A OUTPUT -m owner --uid $tor_user  -j $target
 	
 
 		#handle dns traffic
