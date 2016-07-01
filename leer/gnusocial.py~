@@ -34,7 +34,6 @@ class GNUSocialIRCBot():
         self.socialpass = self.cfg.get("social" , "password")
         self.socialnode = self.cfg.get("social", "node")
         self.commands = [".quit", ".join", ".part", ".say", ".social"]
-	print(self.botnick)
         self.olds = []
         self.ircmsg = ""
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
