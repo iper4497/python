@@ -39,6 +39,6 @@ x = open (destino2 + nombre_archivo + ".bat", 'w') # A partir de aquí creamos e
 x.write('copy /b "'+ nombre_archivo + '.0" "' + nombre_archivo + '"\n')#Falta arreglar esto 
 z = 1
 while z<i:
-    x.write('copy /b "'+ nombre_archivo +'"+"'+ nombre_archivo +'.'+ repr(z)+ '"\n')
+    x.write('copy /b "'+ nombre_archivo +'"+"'+ nombre_archivo +'.'+ repr(z)+ '"\n')#I esto pasarlo a codigo linux para poder pegarlos.
     z = z + 1
 x.close()
