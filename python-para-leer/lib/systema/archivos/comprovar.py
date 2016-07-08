@@ -9,8 +9,8 @@ def lib(a, b, v):
     b.close()
     if a[3] == a[2]:
         a[3] = True
-    return(a[3], a[2])
-class comprovar():
+    print(a[3], a[2])
+class comprovar(object):
     
     def __init__(self, b, v):
         a = range(30)
@@ -19,3 +19,4 @@ class comprovar():
         # v = 'archivo1'
         a = lib(a, b, v)
         return(a)
+comprovar('usarcomprovar.py', 'usarcomprovar.py')
