@@ -4,7 +4,7 @@ import os, sys
 class GUI:
 	def __init__(self):
 		window = Gtk.Window()
-		window.set_title ("Meteorologia")
+		window.set_title ("Hola como estas")
 		window.connect_after('destroy', self.destroy)
 
 		window.show_all()

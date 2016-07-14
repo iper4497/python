@@ -1,5 +1,6 @@
-def getPage(self):
-		pageURL = self.startURL + str(self.page)
+import urllib2
+def getPage(self, a):
+		pageURL = 'http://www.' + str(a)                  
 		req = urllib2.Request(pageURL)
 		print 'Opening ' + pageURL
 		resp = urllib2.urlopen(req)
@@ -10,3 +11,4 @@ def getPage(self):
 			print 'IncompleteRead ' + pageURL
 			page = e.partial
 		return page
+getPage('google.es')
