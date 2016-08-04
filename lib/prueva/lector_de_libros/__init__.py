@@ -2,13 +2,12 @@
 #Esto sera una prueva de la liberia para escuhar i mandarlos al medio configurado en un archvio
 def configuracion():
     #para leer los archvivos de configuracion i retornar el valor como string
-    #Index: a[1] archvio a soltar los audios
-    a = 'config'    
-    a = open(a, 'r')
+    #Index: a[1] archvio a soltar los audios    
+    a = open('config.py', 'r')
     c = 0
-    a.readline()
-    for b in a.readline():
+    a.read()
+    for b in a.read():
         c.append(b)
-    return c 
+    print(c)
 a = configuracion()
 print(a)

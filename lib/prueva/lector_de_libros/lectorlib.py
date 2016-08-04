@@ -10,3 +10,4 @@ class lector(object):
     def escuchar(self):
         for a in self.pal:
             os.system('espeak' + a)
+lector
