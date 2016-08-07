@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -8,6 +9,7 @@ from pygame.locals import *
 # Constantes
 WIDTH = 640
 HEIGHT = 480
+BLANCO = (238, 238, 238)
 
 # Clases
 # ---------------------------------------------------------------------
@@ -28,20 +30,21 @@ def load_image(filename, transparent=False):
         return image
 
 # ---------------------------------------------------------------------
-
 def main():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("Pruebas Pygame")
-    pygame.display.set_caption("Mensaje")
-    background_image = load_image('/home/anon/Descargas/imags.duckduckgo.com.jpeg')
+    pygame.display.set_caption("DumDarac")
+    background_image = load_image('/home/i2p/python2remote/dum/Mop8rfgp.png')
+    screen.fill(BLANCO)
     while True:
         for eventos in pygame.event.get():
             if eventos.type == QUIT:
                 sys.exit(0)
-
-        screen.blit(background_image, (0, 0))
+        screen.blit(background_image, (64, 0)) #Esto se tiene que centrar automaticamente
         pygame.display.flip()
     return 0
+class main2():
+    def __init__(self):
+        main()
 
 if __name__ == '__main__':
     pygame.init()
