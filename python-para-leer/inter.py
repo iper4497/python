@@ -8,7 +8,6 @@ class GUI:
 		window.connect_after('destroy', self.destroy)
 
 		window.show_all()
-
 	def destroy(window, self):
 		Gtk.main_quit()
 
