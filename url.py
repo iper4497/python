@@ -4,7 +4,7 @@ import urllib
 url = 'https://trisquel.info'
  
 post_vars = { 'name': 'minipost',
-              'pass': 'RinDedgoofOnekOovVeducarvebrej',
+              'pass': 'asdfkjasdlñfkhjaskñdflksjadlfkjsa',
               'form_id': 'user_login'}
  
 c = pycurl.Curl()

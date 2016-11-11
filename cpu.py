@@ -1,4 +1,5 @@
 p = 1
+f = 1
 while True:
 	p = p + p
 	a = [ ]
@@ -6,3 +7,6 @@ while True:
 		a.append(b)
 		c = b	
 	print(c)
+	if c > 10000000:
+		p = f + 1
+		f = p
