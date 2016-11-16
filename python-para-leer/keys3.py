@@ -32,12 +32,12 @@ class keys(object):
         print 'stderr: ', decrypted_data.stderr
         print 'decrypted string: ', decrypted_data.data
         return decrypted_data.data
-a = keys('/home/anon/.gnupg')
+a = keys('/home/i2p/.gnupg')
 a.encrytar('hola como estas', '1869B494884B2FAA')
 a.listkeys()
 class graf(object):
     def __init__(self):
-        self.key = keys('/home/anon/.gnupg')
+        self.key = keys('/home/i2p/.gnupg')
         self.ventana = gtk.Window(gtk.WINDOW_TOPLEVEL)
         #self.ventana.connect("destroy", self.quit)
         self.boton = gtk.Button('encryptar')
