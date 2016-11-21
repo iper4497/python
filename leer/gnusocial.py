@@ -7,7 +7,7 @@ import time
 import socket
 import threading
 import ssl
-import ConfigParser 
+import ConfigParser
 import json
 import pycurl
 from StringIO import StringIO
@@ -17,14 +17,14 @@ try:
 except ImportError:
     # python 2
     from urllib import urlencode
-    
-    
+
+
 class GNUSocialIRCBot():
 
     def __init__(self):
 	print("hola_mundo")
         self.cfg = ConfigParser.ConfigParser()
-        self.cfg.read("gnusocialircbot.cfg") 
+        self.cfg.read("gnusocialircbot.cfg")
         self.botnick = self.cfg.get("irc", "nickname")
         self.channel = self.cfg.get("irc", "channel")
         self.owner = self.cfg.get("irc", "owner")
@@ -40,7 +40,7 @@ class GNUSocialIRCBot():
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.ircsock = ssl.wrap_socket(self.s)
         self.url_status = "https://" + self.socialnode + "/api/statuses/friends.json"
-        self.url_update = "https://" + self.socialnode + "/api/statuses/update.xml"           
+        self.url_update = "https://" + self.socialnode + "/api/statuses/update.xml"
         #init functions
         self.connect()
         self.joinchan(self.channel)
@@ -55,7 +55,7 @@ class GNUSocialIRCBot():
     def ping(self):
         self.ircsock.send("PONG :pingis \n")
         self.news()
-        
+
     def sendnews(self, list):
         try:
             for item in list:
@@ -72,16 +72,16 @@ class GNUSocialIRCBot():
         except Exception as e:
             self.sendowner("error on send news", e)
             pass
-                  
+
     def sendmsg(self, msg):
         self.ircsock.send("PRIVMSG " + self.channel + " :" + msg.encode('utf-8') + "\r\n")
-        
+
     def sendowner(self,msg):
         self.ircsock.send("PRIVMSG " + self.owner + " :" + msg + "\r\n")
-      
+
     def joinchan(self, chan):
         self.ircsock.send("JOIN " + chan + "\n")
-        
+
     def social_status(self, msg):
         try:
             curl = pycurl.Curl()
@@ -96,8 +96,8 @@ class GNUSocialIRCBot():
             curl.perform()
             curl.close()
         except:
-            self.sendowner("error on status social")   
-            
+            self.sendowner("error on status social")
+
     def news(self):
         try:
             buffer = StringIO()
@@ -111,18 +111,18 @@ class GNUSocialIRCBot():
             curl.close()
             data = json.loads(buffer.getvalue())
             t = threading.Thread(target=self.sendnews, args=([data]))
-            t.start() 
+            t.start()
         except:
             self.sendowner("error on news")
 
-            
+
     def exitchat(self):
         self.sendowner("ByezzZzzZzz master")
         self.s.close()
         self.ircsock.close()
         exit()
-    
-    def analize_ircmsg(self): 
+
+    def analize_ircmsg(self):
         if self.ircmsg.find("PING :") != -1:
             self.ping()
         for com in self.commands:
@@ -141,12 +141,12 @@ class GNUSocialIRCBot():
                             self.joinchan(param)
                         if com == ".social":
                             self.social_status(param)
-                        
+
     def listen(self):
         while 1:
             self.ircmsg = self.ircsock.recv(512)
             self.ircmsg = self.ircmsg.strip('\n\r')
             self.analize_ircmsg()
-            
+
 if __name__ == "__main__":
     ircbot = GNUSocialIRCBot()

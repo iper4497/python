@@ -11,7 +11,7 @@ for s in range(2):
 	for d in a:
 		c = c + 1
 		for b in a:
-			c = c + 1 
+			c = c + 1
 			#Ya esta aun mas facil
 			R[c] = d,b
 			print(R)

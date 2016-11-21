@@ -10,7 +10,7 @@ This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
- 
+
 For more see the file 'readme/COPYING' for copying permission.
 """
 
@@ -71,26 +71,26 @@ def main():
 
     # Checkall the banner
     menu.banner()
-        
+
     # Check python version number.
     version.python_version()
 
-    # Check if defined "--dependencies" option. 
+    # Check if defined "--dependencies" option.
     # For checking (non-core) third party dependenices.
     if menu.options.noncore_dependencies:
       checks.third_party_dependencies()
       sys.exit(0)
-      
-    # Check if defined "--update" option.        
+
+    # Check if defined "--update" option.
     if menu.options.update:
       update.updater()
       sys.exit(0)
-        
-    # Check if defined "--install" option.        
+
+    # Check if defined "--install" option.
     if menu.options.install:
       install.installer()
       sys.exit(0)
-    
+
     # Check arguments
     if len(sys.argv) == 1:
       menu.parser.print_help()
@@ -103,7 +103,7 @@ def main():
       err_msg += "must be an integer value from range [0, 1]."
       print settings.print_critical_msg(err_msg)
       sys.exit(0)
-    else:  
+    else:
       settings.VERBOSITY_LEVEL = menu.options.verbose
 
     # Check if defined "--delay" option.
@@ -121,7 +121,7 @@ def main():
     # Parse target / data from HTTP proxy logs (i.e Burp / WebScarab).
     if menu.options.logfile:
       parser.logfile_parser()
- 
+
     # Modification on payload
     if not menu.options.shellshock:
       #settings.CURRENT_USER = "echo $(" + settings.CURRENT_USER + ")"
@@ -162,12 +162,12 @@ def main():
             for j in range(0,len(split_first_letter)):
               if split_first_letter[j] in settings.AVAILABLE_TECHNIQUES:
                 found_tech = True
-              else:  
-                found_tech = False  
-                          
+              else:
+                found_tech = False
+
       if split_techniques_names[i].replace(' ', '') not in settings.AVAILABLE_TECHNIQUES and \
          found_tech == False:
-        err_msg = "You specified wrong value '" + split_techniques_names[i] 
+        err_msg = "You specified wrong value '" + split_techniques_names[i]
         err_msg += "' as injection technique. "
         err_msg += "The value, must be a string composed by the letters (C)lassic, (E)val-based, "
         err_msg += "(T)ime-based, (F)ile-based (with or without commas)."
@@ -200,15 +200,15 @@ def main():
         err_msg = "The '" + menu.options.file_upload + "' is not a valid URL. "
         print settings.print_critical_msg(err_msg)
         sys.exit(0)
-        
+
     # Check if defined "--random-agent" option.
     if menu.options.random_agent:
       menu.options.agent = random.choice(settings.USER_AGENT_LIST)
-  
+
     # Check if defined "--url" option.
     if menu.options.url:
       url = menu.options.url
-      
+
       # Check if http / https
       url = checks.check_http_s(url)
 
@@ -216,38 +216,38 @@ def main():
         output_dir = menu.options.output_dir
       else:
         output_dir = settings.OUTPUT_DIR
-      
+
       # One directory up, if Windows or if the script is being run under "/src".
       if settings.IS_WINDOWS or "/src" in os.path.dirname(os.path.abspath(__file__)):
         os.chdir("..")
-        
+
       output_dir = os.path.dirname(output_dir)
-     
+
       try:
         os.stat(output_dir)
       except:
-        os.mkdir(output_dir)   
+        os.mkdir(output_dir)
 
       # The logs filename construction.
       filename = logs.create_log_file(url, output_dir)
       try:
-        
+
         # Check if defined POST data
         if menu.options.data:
           request = urllib2.Request(url, menu.options.data)
         else:
           request = urllib2.Request(url)
 
-        headers.do_check(request)  
-        
+        headers.do_check(request)
+
         # Check if defined any HTTP Proxy (--proxy option).
         if menu.options.proxy:
           proxy.do_check(url)
-        
+
         # Check if defined Tor (--tor option).
         elif menu.options.tor:
           tor.do_check()
-        info_msg = "Checking connection to the target URL... "  
+        info_msg = "Checking connection to the target URL... "
         sys.stdout.write(settings.print_info_msg(info_msg))
         sys.stdout.flush()
 
@@ -255,7 +255,7 @@ def main():
           # Check if defined any HTTP Proxy (--proxy option).
           if menu.options.proxy:
             response = proxy.use_proxy(request)
-          # Check if defined Tor (--tor option).  
+          # Check if defined Tor (--tor option).
           elif menu.options.tor:
             response = tor.use_tor(request)
           else:
@@ -281,8 +281,8 @@ def main():
 
         # Used a valid pair of valid credentials
         if menu.options.auth_cred:
-          success_msg = Style.BRIGHT + "Identified a valid pair of credentials '" 
-          success_msg += menu.options.auth_cred + Style.RESET_ALL 
+          success_msg = Style.BRIGHT + "Identified a valid pair of credentials '"
+          success_msg += menu.options.auth_cred + Style.RESET_ALL
           success_msg += Style.BRIGHT + "'." + Style.RESET_ALL
           print settings.print_success_msg(success_msg)
 
@@ -305,7 +305,7 @@ def main():
 
                   settings.TARGET_OS = identified_os[:3].lower()
                   if menu.options.shellshock:
-                    err_msg = "The shellshock module is not available for " 
+                    err_msg = "The shellshock module is not available for "
                     err_msg += identified_os + " targets."
                     print settings.print_critical_msg(err_msg)
                     raise SystemExit()
@@ -317,7 +317,7 @@ def main():
 
             found_server_banner = False
             if settings.VERBOSITY_LEVEL >= 1:
-              info_msg = "Identifying the target server... " 
+              info_msg = "Identifying the target server... "
               sys.stdout.write(settings.print_info_msg(info_msg))
               sys.stdout.flush()
 
@@ -326,7 +326,7 @@ def main():
                 if settings.VERBOSITY_LEVEL >= 1:
                   print "[ " + Fore.GREEN + "SUCCEED" + Style.RESET_ALL + " ]"
                 if settings.VERBOSITY_LEVEL >= 1:
-                  success_msg = "The server was identified as " 
+                  success_msg = "The server was identified as "
                   success_msg += server_banner + Style.RESET_ALL + "."
                   print settings.print_success_msg(success_msg)
                 settings.SERVER_BANNER = server_banner
@@ -337,7 +337,7 @@ def main():
                     settings.SRV_ROOT_DIR = "\\htdocs"
                   else:
                     settings.SRV_ROOT_DIR = "/var/www"
-                if settings.SERVER_BANNERS[i].lower() == "nginx": 
+                if settings.SERVER_BANNERS[i].lower() == "nginx":
                   settings.SRV_ROOT_DIR = "/usr/share/nginx"
                 if settings.SERVER_BANNERS[i].lower() == "microsoft-iis":
                   settings.SRV_ROOT_DIR = "\\inetpub\\wwwroot"
@@ -348,7 +348,7 @@ def main():
                 print "[ " + Fore.RED + "FAILED" + Style.RESET_ALL + " ]"
               warn_msg = "Heuristics have failed to identify server."
               print settings.print_warning_msg(warn_msg)
-            
+
             # Load tamper scripts
             if menu.options.tamper:
               checks.tamper_scripts()
@@ -367,24 +367,24 @@ def main():
                 print settings.print_warning_msg(warn_msg)
               if menu.options.passwords:
                 warn_msg = "The '--passwords' option, is not yet available for Windows targets."
-                print settings.print_warning_msg(warn_msg)  
+                print settings.print_warning_msg(warn_msg)
               if menu.options.file_upload :
                 warn_msg = "The '--file-upload' option, is not yet available for windows targets. "
                 warn_msg += "Instead, use the '--file-write' option."
-                print settings.print_warning_msg(warn_msg)  
+                print settings.print_warning_msg(warn_msg)
                 sys.exit(0)
-            else: 
-              if menu.options.is_admin : 
+            else:
+              if menu.options.is_admin :
                 warn_msg = "Swithing the '--is-admin' to '--is-root' because "
                 warn_msg += "the target has been identified as unix-like. "
-                print settings.print_warning_msg(warn_msg)  
-            
+                print settings.print_warning_msg(warn_msg)
+
             if found_os_server == False and \
                not menu.options.os:
               # If "--shellshock" option is provided then,
               # by default is a Linux/Unix operating system.
               if menu.options.shellshock:
-                pass 
+                pass
               else:
                 warn_msg = "Heuristics have failed to identify server's operating system."
                 print settings.print_warning_msg(warn_msg)
@@ -404,13 +404,13 @@ def main():
                   else:
                     if got_os == "":
                       got_os = "enter"
-                    err_msg = "'" + got_os + "' is not a valid answer."  
+                    err_msg = "'" + got_os + "' is not a valid answer."
                     print settings.print_error_msg(err_msg)
                     pass
 
             if not menu.options.os:
               if found_server_banner == False:
-                warn_msg = "The server which was identified as " 
+                warn_msg = "The server which was identified as "
                 warn_msg += server_banner + " seems unknown."
                 print settings.print_warning_msg(warn_msg)
           else:
@@ -437,7 +437,7 @@ def main():
             auth_type = auth_line.split()[0]
             settings.SUPPORTED_HTTP_AUTH_TYPES.index(auth_type.lower())
             # Checking for the realm attribute.
-            try: 
+            try:
               auth_obj = re.match('''(\w*)\s+realm=(.*)''', auth_line).groups()
               realm = auth_obj[1].split(',')[0].replace("\"", "")
             except:
@@ -452,11 +452,11 @@ def main():
 
           except IndexError:
             print "[ " + Fore.RED + "FAILED" + Style.RESET_ALL + " ]"
-            err_msg = "The provided pair of " + menu.options.auth_type 
+            err_msg = "The provided pair of " + menu.options.auth_type
             err_msg += " HTTP authentication credentials '" + menu.options.auth_cred + "'"
             err_msg += " seems to be invalid."
             print settings.print_critical_msg(err_msg)
-            sys.exit(0) 
+            sys.exit(0)
 
           print "[ " + Fore.GREEN + "SUCCEED" + Style.RESET_ALL + " ]"
           if menu.options.auth_type and menu.options.auth_type != auth_type.lower():
@@ -473,14 +473,14 @@ def main():
               stored_auth_creds = False
             if stored_auth_creds:
               menu.options.auth_cred = stored_auth_creds
-              success_msg = "Identified a valid pair of credentials '"  
+              success_msg = "Identified a valid pair of credentials '"
               success_msg += menu.options.auth_cred + Style.RESET_ALL + Style.BRIGHT  + "'."
               print settings.print_success_msg(success_msg)
-            else:  
-              # Basic authentication 
+            else:
+              # Basic authentication
               if menu.options.auth_type == "basic":
                 if not menu.options.ignore_401:
-                  warn_msg = "(" + menu.options.auth_type.capitalize() + ") " 
+                  warn_msg = "(" + menu.options.auth_type.capitalize() + ") "
                   warn_msg += "HTTP authentication credentials are required."
                   print settings.print_warning_msg(warn_msg)
                   while True:
@@ -502,19 +502,19 @@ def main():
                     else:
                       if crack_creds == "":
                         crack_creds = "enter"
-                      err_msg = "'" + crack_creds + "' is not a valid answer."  
+                      err_msg = "'" + crack_creds + "' is not a valid answer."
                       print settings.print_error_msg(err_msg)
                       pass
 
-              # Digest authentication         
+              # Digest authentication
               elif menu.options.auth_type == "digest":
                 if not menu.options.ignore_401:
-                  warn_msg = "(" + menu.options.auth_type.capitalize() + ") " 
+                  warn_msg = "(" + menu.options.auth_type.capitalize() + ") "
                   warn_msg += "HTTP authentication credentials are required."
-                  print settings.print_warning_msg(warn_msg)      
+                  print settings.print_warning_msg(warn_msg)
                   # Check if heuristics have failed to identify the realm attribute.
                   if not realm:
-                    warn_msg = "Heuristics have failed to identify the realm attribute." 
+                    warn_msg = "Heuristics have failed to identify the realm attribute."
                     print settings.print_warning_msg(warn_msg)
                   while True:
                     question_msg = "Do you want to perform a dictionary-based attack? [Y/n/q] > "
@@ -535,11 +535,11 @@ def main():
                     else:
                       if crack_creds == "":
                         crack_creds = "enter"
-                      err_msg = "'" + crack_creds + "' is not a valid answer."  
+                      err_msg = "'" + crack_creds + "' is not a valid answer."
                       print settings.print_error_msg(err_msg)
                       pass
-                  else:   
-                    checks.http_auth_err_msg()      
+                  else:
+                    checks.http_auth_err_msg()
           else:
             pass
 
@@ -548,7 +548,7 @@ def main():
           err_msg = "You don't have permission to access this page."
           print settings.print_critical_msg(err_msg)
           sys.exit(0)
-          
+
         elif e.getcode() == 404:
           print "[ " + Fore.RED + "FAILED" + Style.RESET_ALL + " ]"
           err_msg = "The host seems to be down!"
@@ -563,7 +563,7 @@ def main():
         err_msg = "The host seems to be down!"
         print settings.print_critical_msg(err_msg)
         sys.exit(0)
-        
+
       except httplib.BadStatusLine, e:
         print "[ " + Fore.RED + "FAILED" + Style.RESET_ALL + " ]"
         if len(e.line) > 2 :
@@ -582,7 +582,7 @@ def main():
     # Launch injection and exploitation controller.
     controller.do_check(url, filename)
 
-  except KeyboardInterrupt: 
+  except KeyboardInterrupt:
     abort_msg = "Ctrl-C was pressed!"
     print "\n" + settings.print_abort_msg(abort_msg)
     if settings.SHOW_LOGS_MSG == True:
@@ -592,28 +592,28 @@ def main():
       session_handler.clear(menu.options.url)
     sys.exit(0)
 
-  except SystemExit: 
+  except SystemExit:
     if settings.SHOW_LOGS_MSG == True:
       logs.logs_notification(filename)
     print ""
     if menu.options.url:
       session_handler.clear(menu.options.url)
     sys.exit(0)
-  
+
   # Accidental stop / restart of the target host server.
   except httplib.BadStatusLine, e:
     if e.line == "" or e.message == "":
       err_msg = "The target host is not responding."
       err_msg += " Please ensure that is up and try again."
-      print "\n\n" + settings.print_critical_msg(err_msg) 
+      print "\n\n" + settings.print_critical_msg(err_msg)
       if settings.SHOW_LOGS_MSG == True:
         logs.logs_notification(filename)
       print ""
-      sys.exit(0)      
-    else: 
+      sys.exit(0)
+    else:
       err_msg = e.line + e.message
       print settings.print_critical_msg(err_msg) + "\n"
-    session_handler.clear(url)  
+    session_handler.clear(url)
     sys.exit(0)
 
   # Connection reset by peer
@@ -622,14 +622,14 @@ def main():
       print ""
     err_msg = "The target host is not responding."
     err_msg += " Please ensure that is up and try again."
-    print "\n" + settings.print_critical_msg(err_msg) 
+    print "\n" + settings.print_critical_msg(err_msg)
     if settings.SHOW_LOGS_MSG == True:
       logs.logs_notification(filename)
     print ""
     session_handler.clear(url)
     sys.exit(0)
-    
+
 if __name__ == '__main__':
     main()
-    
+
 #eof
