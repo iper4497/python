@@ -22,7 +22,7 @@ except ImportError:
 class GNUSocialIRCBot():
 
     def __init__(self):
-	print("hola_mundo")
+        print("hola_mundo")
         self.cfg = ConfigParser.ConfigParser()
         self.cfg.read("gnusocialircbot.cfg")
         self.botnick = self.cfg.get("irc", "nickname")
@@ -34,7 +34,7 @@ class GNUSocialIRCBot():
         self.socialpass = self.cfg.get("social" , "password")
         self.socialnode = self.cfg.get("social", "node")
         self.commands = [".quit", ".join", ".part", ".say", ".social"]
-	print(self.botnick)
+        print(self.botnick)
         self.olds = []
         self.ircmsg = ""
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -46,7 +46,7 @@ class GNUSocialIRCBot():
         self.joinchan(self.channel)
         self.sendowner("Im ready master")
         self.listen()
-	print(self.botnick)
+        print(self.botnick)
     def connect(self):
         self.ircsock.connect((self.server, self.port))
         self.ircsock.send("USER " + self.botnick + " " + self.botnick + " " + self.botnick + "  :\r\n")

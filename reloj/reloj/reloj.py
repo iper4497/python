@@ -21,8 +21,6 @@ class reloj(QtGui.QMainWindow):
             alarma()
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
-
     myapp = reloj() #Es la variable de la hora a sonar
     myapp.show()
-
     sys.exit(app.exec_())
