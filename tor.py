@@ -18,6 +18,7 @@ from argparse import ArgumentParser
 from json import load
 from urllib2 import urlopen, URLError
 from time import sleep
+import os
 
 
 class TorIptables(object):
@@ -64,13 +65,14 @@ DNSPort %s
               "[\033[92m*\033[0m] Getting public IP, please wait..."))
           retries = 0
           my_public_ip = None
-          while retries < 12 and not my_public_ip:
+          while retries < 1200 and not my_public_ip:
             retries += 1
             try:
               my_public_ip = load(urlopen('http://jsonip.com/'))['ip']
             except URLError:
-              sleep(5)
+              sleep(1)
               print(" [\033[93m?\033[0m] Still waiting for IP address...")
+	      os.system("service  tor restart > /dev/null")
           print
           if not my_public_ip:
             my_public_ip = getoutput('wget -qO - v4.ifconfig.co')
@@ -134,7 +136,19 @@ if __name__ == '__main__':
           torrconf.write(load_tables.torrc)
 
     if args.load:
-      load_tables.load_iptables_rules()
+      print("Obteniedo ip publica")
+      ip = getoutput('wget -qO - v4.ifconfig.co')
+      print(ip)
+      while not ip:
+         load_tables.flush_iptables_rules()
+         print(ip)
+         ip = getoutput('wget -qO - v4.ifconfig.co')
+      if not ip:
+         pass
+      else:
+         print(ip)
+         load_tables.load_iptables_rules()
+
     elif args.flush:
       load_tables.flush_iptables_rules()
       print(" {0}".format(
